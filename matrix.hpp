@@ -2,6 +2,9 @@
 #define MATRIX_H_
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <random>
 #include <concepts>
 
 template <typename T> requires std::is_arithmetic_v<T>
@@ -97,5 +100,31 @@ public:
 	}
 
 };
+
+template <typename T> requires std::is_arithmetic_v<T>
+Matrix<T> read_from_file(std::string path) {
+	std::ifstream file;
+	std::string line;
+ 
+	file.open(path);
+
+    if (!file.is_open()) {
+		throw std::exception("Ошибка при открытии файла!");
+    }
+	
+	size_t rows, columns;
+	file >> rows >> columns;
+	Matrix<T> matrix(rows, columns);
+
+	for (size_t i = 0; i < rows; i++) {
+		for (size_t j = 0; j < columns; j++) {
+			file >> matrix(i, j); 
+		}
+	}
+
+	file.close();
+
+	return matrix;
+}
 
 #endif
