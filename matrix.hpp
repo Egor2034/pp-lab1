@@ -80,7 +80,7 @@ public:
 
 	Matrix operator*(const Matrix<T>& other) const {
 		if (_columns != other.rows()) {
-			throw std::invalid_argument("Число столбцов первой матрицы не равно числу строк второй!");
+			throw std::invalid_argument("Р§РёСЃР»Рѕ СЃС‚РѕР»Р±С†РѕРІ РїРµСЂРІРѕР№ РјР°С‚СЂРёС†С‹ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ СЂР°РІРЅРѕ С‡РёСЃР»Сѓ СЃС‚СЂРѕРє РІС‚РѕСЂРѕР№!");
 		}
 
 		Matrix<T> matr(_rows, other.columns());
