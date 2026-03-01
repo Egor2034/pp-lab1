@@ -90,7 +90,7 @@ public:
 
 		for (size_t i = 0; i < _rows; i++) {
 			for (size_t j = 0; j < other.columns(); j++) {
-				for (size_t k = 0; k < _rows; k++) { 
+				for (size_t k = 0; k < _columns; k++) { 
 					matr(i, j) += _data[i][k] * other(k, j);
 				}
 			}
@@ -125,6 +125,28 @@ Matrix<T> read_from_file(std::string path) {
 	file.close();
 
 	return matrix;
+}
+
+template <typename T> requires std::is_arithmetic_v<T>
+void save_to_file(Matrix<T> matrix, std::string file_name) {
+  std::ofstream file;
+
+  file.open(file_name);
+
+  if (!file.is_open()) {
+    throw std::exception("Ошибка при открытии файла!");
+    }
+
+  file << matrix.rows() << " " << matrix.columns() << "\n";
+
+  for (size_t i = 0; i < matrix.rows(); i++) {
+    for (size_t j = 0; j < matrix.columns(); j++) {
+      file << matrix(i, j) << " ";
+    }
+    file << "\n";
+  }
+  
+  file.close();
 }
 
 #endif

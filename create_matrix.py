@@ -11,6 +11,8 @@ def generate_matrix(size: int, filename: str, seed: int) -> None:
     matrix = np.random.rand(size, size) * 10
     
     with open(filename, 'w', encoding='utf-8') as file:
+        file.writelines(f"{size} {size}\n")
+        
         for i in range(size):
             for j in range(size):
                 file.write(f"{matrix[i][j]:.4f} ")
