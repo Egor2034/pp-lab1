@@ -1,16 +1,17 @@
 import argparse
 import numpy as np
+import os
 import random
 
 
-def generate_matrix(size: int, filename: str, seed: int) -> None:
+def generate_matrix(size: int, path: str, seed: int) -> None:
     """Генерация случайной матрицы и сохранение в файл"""
     if seed is not None:
         np.random.seed(seed)
     
     matrix = np.random.rand(size, size) * 10
     
-    with open(filename, 'w', encoding='utf-8') as file:
+    with open(path, 'w', encoding='utf-8') as file:
         file.writelines(f"{size} {size}\n")
         
         for i in range(size):
@@ -19,21 +20,22 @@ def generate_matrix(size: int, filename: str, seed: int) -> None:
             file.write("\n")
 
 
-def get_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-s', '--size', help='Размерность матриц')
-
-    return parser.parse_args()
-
-
 def main() -> None:
-    size = int(get_args().size)
-    seedA = random.randint(1, 100)
-    seedB = random.randint(40, 140)
+    os.makedirs(".\\matrices", exist_ok=True)
+    os.makedirs(".\\matrices\\results", exist_ok=True)
+    
+    FOLDER = ".\\matrices"
+    sizes = [100, 200, 400, 800, 1200, 1600, 2000]
+    
+    for size in sizes:
+        seedA = random.randint(1, 100)
+        seedB = random.randint(100, 200)
 
-    generate_matrix(size, "matrixA.txt", seedA)
-    generate_matrix(size, "matrixB.txt", seedB)
+        generate_matrix(size, f".\\{FOLDER}\\matrixA{size}x{size}.txt", seedA)
+        generate_matrix(size, f".\\{FOLDER}\\matrixB{size}x{size}.txt", seedB)
 
+    
+    
 
 if __name__ == "__main__":
     main()

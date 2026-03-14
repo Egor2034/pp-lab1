@@ -135,10 +135,10 @@ Matrix<T> read_from_file(std::string path) {
 }
 
 template <typename T> requires std::is_arithmetic_v<T>
-void save_to_file(Matrix<T> matrix, std::string file_name) {
+void save_to_file(Matrix<T> matrix, std::string filename) {
 	std::ofstream file;
 
-    file.open(file_name);
+    file.open(filename);
 
   	if (!file.is_open()) {
     	throw std::exception("Ошибка при открытии файла!");
